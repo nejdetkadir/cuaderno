@@ -19,7 +19,7 @@ const store = new Vuex.Store({
     actions: {
         login({commit}, authData) {
             const url = authData.isUser ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FIREBASE_API_KEY}` : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FIREBASE_API_KEY}`;
-            Vue.axios.post(url, {
+            return Vue.axios.post(url, {
                 email: authData.email,
                 password: authData.password,
                 returnSecureToken: true
@@ -43,8 +43,8 @@ const store = new Vuex.Store({
         }
     },
     getters: {
-        getToken({state}) {
-            return state.token;
+        isAuthenticated(state) {
+            return state.token !== "";
         }
     }
 });

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from "@/store";
+
+// pages
 import Main from '../views/Main.vue'
 import Auth from "@/views/Auth";
 import Details from "@/views/Details";
@@ -10,17 +13,38 @@ const routes = [
   {
     path: '/',
     name: 'Main',
-    component: Main
+    component: Main,
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/auth");
+      }
+    }
   },
   {
     path: '/details',
     name: 'Details',
-    component: Details
+    component: Details,
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/auth");
+      }
+    }
   },
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth
+    component: Auth,
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next("/");
+      } else {
+        next();
+      }
+    }
   },
 ]
 
