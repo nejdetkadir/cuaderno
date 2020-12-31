@@ -6,9 +6,7 @@
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.mr-auto
         li.nav-item.active
-          a.nav-link(href='#')
-            | Home
-            span.sr-only (current)
+          router-link(to='/auth' tag='a').nav-link Auth
         li.nav-item
           a.nav-link(href='#') Link
         li.nav-item.dropdown
