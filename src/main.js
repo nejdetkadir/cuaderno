@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 
-
 new Vue({
   store,
   router,

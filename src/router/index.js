@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from "@/store";
 
 // pages
-import Main from '../views/Main.vue'
+import Main from '@/views/Main'
 import Auth from "@/views/Auth";
 import Details from "@/views/Details";
 
@@ -37,14 +37,7 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth,
-    beforeEnter(to, from, next) {
-      if (store.getters.isAuthenticated) {
-        next("/");
-      } else {
-        next();
-      }
-    }
+    component: Auth
   },
 ]
 

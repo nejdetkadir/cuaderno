@@ -17,6 +17,12 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        initAuth({commit}) {
+            let token = localStorage.getItem("token");
+            if (token) {
+                commit("setToken", token);
+            }
+        },
         login({commit}, authData) {
             const url = authData.isUser ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FIREBASE_API_KEY}` : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FIREBASE_API_KEY}`;
             return Vue.axios.post(url, {
@@ -25,6 +31,7 @@ const store = new Vuex.Store({
                 returnSecureToken: true
             }).then((res) => {
                 commit("setToken", res.data.idToken);
+                localStorage.setItem("token", res.data.idToken);
                 swal({
                     title: `${res}`,
                     text: "You clicked the button!",
@@ -38,8 +45,9 @@ const store = new Vuex.Store({
                 });
             });
         },
-        logout() {
-
+        logout({commit}) {
+            commit("clearToken");
+            localStorage.removeItem("token");
         }
     },
     getters: {

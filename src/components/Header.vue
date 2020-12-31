@@ -5,10 +5,8 @@
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.mr-auto
-        li.nav-item.active
-          router-link(to='/auth' tag='a').nav-link Auth
         li.nav-item
-          a.nav-link(href='#') Link
+          a.nav-link(@click.prevent="logout" href='#') Logout
         li.nav-item.dropdown
           a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
             | Dropdown
@@ -26,9 +24,15 @@
 </template>
 
 <script>
-export default {
-name: "Header"
-}
+  export default {
+    name: "Header",
+    methods: {
+      logout() {
+        this.$store.dispatch("logout");
+        this.$router.replace("/auth");
+      }
+    },
+  }
 </script>
 
 <style scoped>
