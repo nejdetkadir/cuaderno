@@ -5,16 +5,16 @@
         .text-center
           img(:src='logo' height='150')
           hr
-        form
+        form(@submit.prevent="onSubmit")
           .form-group
             label(for='exampleInputEmail1') Email address
-            input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp')
+            input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp' v-model="user.email")
           .form-group
             label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password')
-          button.btn.btn-block(type='submit' :class='{"btn-primary" : !isLogin, "btn-success" : isLogin }') {{ isLogin ? 'Sign in' : 'Sign Up' }}
+            input#exampleInputPassword1.form-control(type='password' v-model="user.password")
+          button.btn.btn-block(type='submit' :class='{"btn-primary" : !isUser, "btn-success" : isUser }') {{ isUser ? 'Sign in' : 'Sign Up' }}
           .text-center.mt-3
-            button.btn.btn-outline-secondary.btn-sm(type='button' @click.prevent='isLogin = !isLogin') {{ isLogin ? "I haven't an account yet" : "I have an account" }}d
+            button.btn.btn-outline-secondary.btn-sm(type='submit' @click.prevent='isUser = !isUser') {{ isUser ? "I haven't an account yet" : "I have an account" }}d
 </template>
 
 <script>
@@ -24,11 +24,22 @@ export default {
   data() {
     return{
       logo: require('../assets/logo.png'),
-      isLogin: true
+      isUser: true,
+      user: {
+        email: 'nejdetkadir.550@gmail.com',
+        password: '5313235157'
+      },
     }
   },
   components: {
     Header
+  },
+  methods: {
+    onSubmit() {
+      this.$store.dispatch("login", {
+        ...this.user, isUser: this.isUser
+      });
+    }
   }
 }
 </script>
