@@ -3,9 +3,9 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/59d9851fdf92484bbee3853965e277b1)](https://www.codacy.com/gh/nejdetkadir/cuaderno/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nejdetkadir/cuaderno&amp;utm_campaign=Badge_Grade)
 
 # Screenshots
-Main layout                |  Details layout
-:-------------------------:|:-------------------------:
-![main](doc/main.png)      |  ![details](doc/details.png)
+Main layout                |  Details layout           |    Auth layout
+:-------------------------:|:-------------------------:|:-------------------------:
+![main](doc/main.png)      |![details](doc/details.png)| ![auth](doc/auth.png)
 
 ## Project setup
 ```
