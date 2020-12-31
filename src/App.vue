@@ -1,14 +1,10 @@
-<template>
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-md-6">
-        left
-      </div>
-      <div class="col-md-6">
-        right
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  .container
+    .row.text-center
+      .col-md-6
+        | left
+      .col-md-6
+        | right
 </template>
 
 <script>
