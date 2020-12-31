@@ -1,6 +1,6 @@
 <template lang="pug">
   nav.navbar.navbar-expand-lg.navbar-light.bg-white
-    a.navbar-brand(href='#') CUADERNO
+    router-link(to='/' tag='a').navbar-brand CUADERNO
     button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse

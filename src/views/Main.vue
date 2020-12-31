@@ -1,9 +1,9 @@
 <template lang="pug">
-  .container.mt-4
+  .container.mt-5
     Header
     hr
     .row
-      .col-sm-3(v-for='i in 10')
+      .col-sm-3(v-for='i in 5')
         .card.text-center.mt-2.shadow.p-3.mb-3.rounded
           img(:src='cover')
           .card-body
