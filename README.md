@@ -1,6 +1,7 @@
-# cuaderno
-
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/59d9851fdf92484bbee3853965e277b1)](https://www.codacy.com/gh/nejdetkadir/cuaderno/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nejdetkadir/cuaderno&amp;utm_campaign=Badge_Grade)
+
+# cuaderno
+![cover](doc/cover.jpg)
 
 # Screenshots
 Main layout                |  Details layout           |    Auth layout
