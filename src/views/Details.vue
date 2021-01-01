@@ -3,7 +3,7 @@
     Header
     hr
     #accordionExample.accordion
-      .card(v-for='note in this.$store.getters.getNotes')
+      .card(v-for='note in this.$store.getters.getNotes' :id="'note' + note.id")
         .card-header(:id='"heading" + note.id')
           h2.mb-0
             button.btn.btn-link.btn-block.text-left.text-dark(type='button' data-toggle='collapse' :data-target='"#collapse" + note.id' aria-expanded='true' :aria-controls='"collapse" + note.id')
@@ -34,7 +34,7 @@
                       option Medium
                       option High
               .col-md-12
-                  button.btn.btn-outline-success.btn-block(:id="note.id") UPDATE
+                  button.btn.btn-outline-success.btn-block(:id="'button' + note.id") UPDATE
     .input-group.mb-3
       .input-group-prepend
         span#inputGroup-sizing-default.input-group-text +
@@ -64,6 +64,17 @@
           priority: this.priority
         });
         this.title = '';
+      }
+    },
+    watch: {
+      noteData: function (val) {
+        if (val.length !== 0) {
+          this.$store.dispatch('deleteNote', {
+            id: val[0]
+          }).then(() => {
+            this.noteData = [];
+          })
+        }
       }
     }
   }
