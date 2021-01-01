@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import swal from 'sweetalert';
 import Collection from "@/store/modules/Collection";
+import Notes from "@/store/modules/Notes";
 
 Vue.use(Vuex);
 
@@ -62,7 +63,8 @@ const store = new Vuex.Store({
         }
     },
     modules: {
-        Collection
+        Collection,
+        Notes
     }
 });
 

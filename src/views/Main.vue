@@ -9,7 +9,8 @@
           .card-body
             h5.card-title {{col.collectionName}}
             .btn-group(role='group')
-              router-link(:to='"/details/" + col.id' tag='button').btn.btn-outline-info VIEW
+              router-link(:to='"/details/" + col.id' tag='a')
+                button.btn.btn-outline-info VIEW
               button.btn.btn-outline-danger(type='button' @click.prevent='removeCollection(col.id)') DELETE
 
 </template>

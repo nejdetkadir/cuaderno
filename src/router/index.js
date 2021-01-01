@@ -23,12 +23,16 @@ const routes = [
     }
   },
   {
-    path: '/details',
+    path: '/details/:id',
     name: 'Details',
     component: Details,
     beforeEnter(to, from, next) {
       if (store.getters.isAuthenticated) {
+        store.dispatch('queryNotes', {
+          id: to.params.id
+        });
         next();
+
       } else {
         next("/auth");
       }

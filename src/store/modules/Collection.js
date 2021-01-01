@@ -8,7 +8,7 @@ const state = {
 const getters = {
     getCollections(state) {
         return state.collections;
-    }
+    },
 };
 
 const mutations = {
