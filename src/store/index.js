@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import swal from 'sweetalert';
+import Collection from "@/store/modules/Collection";
 
 Vue.use(Vuex);
 
@@ -32,6 +33,7 @@ const store = new Vuex.Store({
             }).then((res) => {
                 commit("setToken", res.data.idToken);
                 localStorage.setItem("token", res.data.idToken);
+                localStorage.setItem("userEmail", authData.email);
                 swal({
                     title: `${res}`,
                     text: "You clicked the button!",
@@ -48,12 +50,19 @@ const store = new Vuex.Store({
         logout({commit}) {
             commit("clearToken");
             localStorage.removeItem("token");
+            localStorage.removeItem("userEmail");
         }
     },
     getters: {
         isAuthenticated(state) {
             return state.token !== "";
+        },
+        getUserEmail() {
+            return localStorage.getItem('userEmail');
         }
+    },
+    modules: {
+        Collection
     }
 });
 

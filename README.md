@@ -17,6 +17,7 @@ npm install
 Create a file named ".env.local" in the root directory and fill its contents as follows.
 ```ruby
 VUE_APP_FIREBASE_API_KEY = XXX
+VUE_APP_FIREBASE_DB_URL = XXX 
 ```
 
 ### Start development server

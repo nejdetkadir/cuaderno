@@ -17,19 +17,29 @@
             a.dropdown-item(href='#') Something else here
         li.nav-item
           a.nav-link.disabled(href='#' tabindex='-1' aria-disabled='true') Disabled
-      form.form-inline.my-2.my-lg-0
-        input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
-        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+      form.form-inline.my-2.my-lg-0(@submit.prevent="onSaveCollection()")
+        input.form-control.mr-sm-2(type='text' v-model='collectionName' placeholder='Collection name' aria-label='Search')
+        button.btn.btn-outline-secondary.my-2.my-sm-0 CREATE
 
 </template>
 
 <script>
   export default {
     name: "Header",
+    data() {
+      return{
+        collectionName: ''
+      }
+    },
     methods: {
       logout() {
         this.$store.dispatch("logout");
         this.$router.replace("/auth");
+      },
+      onSaveCollection() {
+        this.$store.dispatch("saveCollection", {
+          collectionName: this.collectionName
+        });
       }
     },
   }
