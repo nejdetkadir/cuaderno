@@ -69,10 +69,13 @@
     watch: {
       noteData: function (val) {
         if (val.length !== 0) {
+          document.getElementById('note' + val[0]).style.display = 'none';
           this.$store.dispatch('deleteNote', {
             id: val[0]
           }).then(() => {
             this.noteData = [];
+          }).catch(() => {
+            document.getElementById('note' + val[0]).style.display = 'block';
           })
         }
       }

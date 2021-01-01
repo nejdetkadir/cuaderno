@@ -85,7 +85,6 @@ const actions = {
         return Vue.axios.delete(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections/${getters.getCollectionId}/notes/${data.id}.json`)
             .then(() => {
                 dispatch("initNotes");
-                swal("Aww yiss!", "Deleted your tweet!", "success")
             })
             .catch(() => {
                 swal("Error!", "There is a error!", "error");
