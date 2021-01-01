@@ -29,7 +29,11 @@ const actions = {
                     state.collections = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    swal({
+                        title: `${err}`,
+                        text: "You clicked the button!",
+                        icon: "error",
+                    });
                 });
         }
     },

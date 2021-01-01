@@ -8,7 +8,10 @@
           img(:src='cover')
           .card-body
             h5.card-title {{col.collectionName}}
-            router-link(:to='"/details/" + col.id' tag='a').btn.btn-outline-secondary VIEW
+            .btn-group(role='group')
+              router-link(:to='"/details/" + col.id' tag='button').btn.btn-outline-info VIEW
+              button.btn.btn-outline-danger(type='button' @click.prevent='removeCollection(col.id)') DELETE
+
 </template>
 
 <script>
@@ -18,6 +21,13 @@
     data() {
       return{
         cover: require('../assets/note.png')
+      }
+    },
+    methods: {
+      removeCollection(id) {
+        this.$store.dispatch('deleteCollection', {
+          id
+        });
       }
     },
     components: {
