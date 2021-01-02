@@ -4,6 +4,7 @@ import swal from "sweetalert";
 
 const state = {
     notes: [],
+    todayNotes: [],
     collectionId: ''
 };
 
@@ -13,6 +14,9 @@ const getters = {
     },
     getCollectionId(state) {
         return state.collectionId;
+    },
+    getToday(state) {
+        return state.todayNotes;
     }
 };
 
@@ -20,6 +24,9 @@ const mutations = {
     clearNotes(state) {
         state.notes = [];
     },
+    clearToday(state) {
+        state.todayNotes = [];
+    }
 };
 
 const actions = {
@@ -93,6 +100,22 @@ const actions = {
             .catch(() => {
                 swal("Error!", "There is a error!", "error");
             });
+    },
+    queryToday({getters, state, commit}) {
+        if (getters.isAuthenticated) {
+            commit('clearToday');
+            let now = new Date();
+            let today = now.getFullYear()+"-"+("0" + (now.getMonth() + 1)).slice(-2)+"-"+("0" + now.getDate()).slice(-2)
+            let todayData = [];
+            for (let i in getters.getCollections) {
+                for (let j in getters.getCollections[i].notes) {
+                    if (today === getters.getCollections[i].notes[j].datepicker) {
+                        todayData.push(getters.getCollections[i].notes[j]);
+                    }
+                }
+            }
+            state.todayNotes = todayData;
+        }
     },
     deleteNote({dispatch, getters}, data) {
         return Vue.axios.delete(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections/${getters.getCollectionId}/notes/${data.id}.json`)

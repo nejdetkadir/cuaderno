@@ -3,7 +3,7 @@
     Header
     hr
     .row
-      .col-sm-3(v-for='col in this.$store.getters.getCollections')
+      .col-sm-4(v-for='col in this.$store.getters.getCollections')
         .card.text-center.mt-2.shadow.p-3.mb-3.rounded
           img(:src='cover')
           .card-body

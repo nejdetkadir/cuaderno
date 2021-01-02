@@ -6,6 +6,7 @@ import store from "@/store";
 import Main from '@/views/Main'
 import Auth from "@/views/Auth";
 import Details from "@/views/Details";
+import Today from "@/views/Today";
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,19 @@ const routes = [
         });
         next();
 
+      } else {
+        next("/auth");
+      }
+    }
+  },
+  {
+    path: '/today',
+    name: 'Today',
+    component: Today,
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        store.dispatch('queryToday');
+        next();
       } else {
         next("/auth");
       }

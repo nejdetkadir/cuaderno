@@ -14,7 +14,7 @@ const getters = {
 const mutations = {
     clearCollections(state) {
         state.collections = [];
-    }
+    },
 };
 
 const actions = {

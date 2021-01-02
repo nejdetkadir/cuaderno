@@ -6,17 +6,11 @@
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.mr-auto
         li.nav-item
-          a.nav-link(@click.prevent="logout" href='#') Logout
-        li.nav-item.dropdown
-          a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-            | Dropdown
-          .dropdown-menu(aria-labelledby='navbarDropdown')
-            a.dropdown-item(href='#') Action
-            a.dropdown-item(href='#') Another action
-            .dropdown-divider
-            a.dropdown-item(href='#') Something else here
+          router-link(to='/today' tag='a' v-if="$route.path === '/'").nav-link TODAY
+        li.nav-item
+          a.nav-link(@click.prevent="logout" href='#') logout
       form.form-inline.my-2.my-lg-0(@submit.prevent="onSaveCollection()" v-if="$route.path === '/'")
-        input.form-control.mr-sm-2(type='text' v-model='collectionName' placeholder='Collection name' aria-label='Search')
+        input.form-control.mr-sm-2(type='text' v-model='collectionName' maxlength='15' placeholder='Collection name' aria-label='Search')
         button.btn.btn-outline-secondary.my-2.my-sm-0 CREATE
 </template>
 
@@ -37,6 +31,7 @@
         this.$store.dispatch("saveCollection", {
           collectionName: this.collectionName
         });
+        this.collectionName = '';
       }
     },
   }
