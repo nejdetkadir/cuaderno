@@ -69,8 +69,9 @@ const actions = {
         if (getters.isAuthenticated) {
             Vue.axios.post(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections/${getters.getCollectionId}/notes.json`, {
                 title: data.title,
-                longNote: data.longNote,
-                priority: data.priority,
+                longNote: '',
+                datepicker: '',
+                priority: 'None',
             })
                 .then(() => {
                     dispatch("initNotes");
@@ -80,8 +81,20 @@ const actions = {
                 });
         }
     },
+    updateNoteDetails({getters, dispatch}, data) {
+        return Vue.axios.patch(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections/${getters.getCollectionId}/notes/${data.id}.json`, {
+            longNote: data.longNote,
+            datepicker: data.datepicker,
+            priority: data.priority
+        })
+            .then(() => {
+                dispatch("initNotes");
+            })
+            .catch(() => {
+                swal("Error!", "There is a error!", "error");
+            });
+    },
     deleteNote({dispatch, getters}, data) {
-        console.log(data.id)
         return Vue.axios.delete(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections/${getters.getCollectionId}/notes/${data.id}.json`)
             .then(() => {
                 dispatch("initNotes");

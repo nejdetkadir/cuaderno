@@ -25,7 +25,7 @@
                       .col
                         button.btn.btn-secondary.btn-block(type='button' :data-id='note.id' @click.prevent="changeToTomorrow") Tomorrow
                       .col
-                        input.btn.btn-secondary.btn-block(type="date" :id="'datepicker'+note.id" name="datepicker")
+                        input.btn.btn-secondary.btn-block(type="date" :id="'datepicker'+note.id" name="datepicker" v-model='note.datepicker')
                     .form-group.mt-4
                       label Priority
                       select.form-control(v-model='note.priority' name="priority")
@@ -52,17 +52,13 @@
     data() {
       return{
         title: '',
-        longNote: 'Long text',
-        priority: 'None',
         noteData: []
       }
     },
     methods: {
       onSaveNote() {
         this.$store.dispatch('saveNote', {
-          title: this.title,
-          longNote: this.longNote,
-          priority: this.priority
+          title: this.title
         });
         this.title = '';
       },
@@ -81,7 +77,12 @@
       updateNote(e) {
         let form = $('#' + e.target.getAttribute('data-id'));
         const formData = form.serializeArray();
-        console.log(formData);
+        this.$store.dispatch('updateNoteDetails', {
+          id: e.target.getAttribute('data-id'),
+          longNote: formData[0].value,
+          datepicker: formData[1].value,
+          priority: formData[2].value
+        })
       }
     },
     watch: {
