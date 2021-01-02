@@ -27,6 +27,7 @@ const store = new Vuex.Store({
             let token = localStorage.getItem("token");
             if (token) {
                 commit("setToken", token);
+                commit('setUserEmail', localStorage.getItem("userEmail"));
                 dispatch('initCollections');
             }
 
@@ -57,9 +58,6 @@ const store = new Vuex.Store({
         },
         logout({commit}) {
             commit("clearToken");
-            commit("clearToday");
-            commit('clearCollections')
-            commit('clearNotes');
             localStorage.removeItem("token");
             localStorage.removeItem("userEmail");
         }

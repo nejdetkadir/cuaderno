@@ -46,13 +46,6 @@ export default {
   created() {
     if (this.$store.getters.isAuthenticated) {
       this.$router.replace("/");
-    } else {
-      this.$store.commit("clearToken");
-      this.$store.commit("clearToday");
-      this.$store.commit('clearCollections')
-      this.$store.commit('clearNotes');
-      localStorage.removeItem("token");
-      localStorage.removeItem("userEmail");
     }
   }
 }
