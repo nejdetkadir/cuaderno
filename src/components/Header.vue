@@ -15,12 +15,9 @@
             a.dropdown-item(href='#') Another action
             .dropdown-divider
             a.dropdown-item(href='#') Something else here
-        li.nav-item
-          a.nav-link.disabled(href='#' tabindex='-1' aria-disabled='true') Disabled
-      form.form-inline.my-2.my-lg-0(@submit.prevent="onSaveCollection()")
+      form.form-inline.my-2.my-lg-0(@submit.prevent="onSaveCollection()" v-if="$route.path === '/'")
         input.form-control.mr-sm-2(type='text' v-model='collectionName' placeholder='Collection name' aria-label='Search')
         button.btn.btn-outline-secondary.my-2.my-sm-0 CREATE
-
 </template>
 
 <script>

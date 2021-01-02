@@ -13,28 +13,28 @@
                   | {{note.title}}
         .collapse(:aria-labelledby='"heading" + note.id' :id='"collapse" + note.id' data-parent="#accordionExample" )
           .card-body
-            .row
-              .col-md-6
-                .form-group
-                  textarea#exampleFormControlTextarea1.form-control(rows='5' placeholder='Note') {{ note.longNote }}
-              .col-md-6
-                form
-                  .form-row
-                    .col
-                      button.btn.btn-secondary.btn-block(type='button') Today
-                    .col
-                      button.btn.btn-secondary.btn-block(type='button') Tomorrow
-                    .col
-                      button.btn.btn-secondary.btn-block(type='button') 04-01-2000
-                  .form-group.mt-4
-                    label Priority
-                    select.form-control(v-model='note.priority')
-                      option None
-                      option Low
-                      option Medium
-                      option High
-              .col-md-12
-                  button.btn.btn-outline-success.btn-block(:id="'button' + note.id") UPDATE
+            form(:id="note.id")
+              .row
+                .col-md-6
+                  .form-group
+                    textarea#exampleFormControlTextarea1.form-control(rows='5' placeholder='Note' name='longNote') {{ note.longNote }}
+                .col-md-6
+                    .form-row
+                      .col
+                        button.btn.btn-secondary.btn-block(type='button' :data-id='note.id' @click.prevent="changeToToday") Today
+                      .col
+                        button.btn.btn-secondary.btn-block(type='button' :data-id='note.id' @click.prevent="changeToTomorrow") Tomorrow
+                      .col
+                        input.btn.btn-secondary.btn-block(type="date" :id="'datepicker'+note.id" name="datepicker")
+                    .form-group.mt-4
+                      label Priority
+                      select.form-control(v-model='note.priority' name="priority")
+                        option None
+                        option Low
+                        option Medium
+                        option High
+                .col-md-12
+                  button.btn.btn-outline-success.btn-block(:data-id="note.id" @click.prevent="updateNote") UPDATE
     .input-group.mb-3
       .input-group-prepend
         span#inputGroup-sizing-default.input-group-text +
@@ -43,6 +43,7 @@
 
 <script>
   import Header from "@/components/Header";
+  import $ from 'jquery';
   export default {
     name: 'Details',
     components: {
@@ -64,6 +65,23 @@
           priority: this.priority
         });
         this.title = '';
+      },
+      changeToToday(e) {
+        let el = 'datepicker'+e.target.getAttribute('data-id');
+        let now = new Date();
+        let today = now.getFullYear()+"-"+("0" + (now.getMonth() + 1)).slice(-2)+"-"+("0" + now.getDate()).slice(-2)
+        document.getElementById(el).value = today;
+      },
+      changeToTomorrow(e) {
+        let el = 'datepicker'+e.target.getAttribute('data-id');
+        let now = new Date();
+        let tomorrow = now.getFullYear()+"-"+("0" + (now.getMonth() + 1)).slice(-2)+"-"+("0" + (now.getDate() + 1)).slice(-2)
+        document.getElementById(el).value = tomorrow;
+      },
+      updateNote(e) {
+        let form = $('#' + e.target.getAttribute('data-id'));
+        const formData = form.serializeArray();
+        console.log(formData);
       }
     },
     watch: {
