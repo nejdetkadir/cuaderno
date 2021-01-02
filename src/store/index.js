@@ -8,22 +8,28 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        token: ""
+        token: "",
+        userEmail: ''
     },
     mutations: {
         setToken(state, token){
             state.token = token;
+        },
+        setUserEmail(state, userEmail) {
+            state.userEmail = userEmail;
         },
         clearToken(state){
             state.token = "";
         }
     },
     actions: {
-        initAuth({commit}) {
+        initAuth({commit, dispatch}) {
             let token = localStorage.getItem("token");
             if (token) {
                 commit("setToken", token);
+                dispatch('initCollections');
             }
+
         },
         login({commit}, authData) {
             const url = authData.isUser ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FIREBASE_API_KEY}` : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FIREBASE_API_KEY}`;
@@ -33,6 +39,7 @@ const store = new Vuex.Store({
                 returnSecureToken: true
             }).then((res) => {
                 commit("setToken", res.data.idToken);
+                commit("setUserEmail", authData.email);
                 localStorage.setItem("token", res.data.idToken);
                 localStorage.setItem("userEmail", authData.email);
                 swal({
@@ -50,6 +57,9 @@ const store = new Vuex.Store({
         },
         logout({commit}) {
             commit("clearToken");
+            commit("clearToday");
+            commit('clearCollections')
+            commit('clearNotes');
             localStorage.removeItem("token");
             localStorage.removeItem("userEmail");
         }
@@ -58,8 +68,8 @@ const store = new Vuex.Store({
         isAuthenticated(state) {
             return state.token !== "";
         },
-        getUserEmail() {
-            return localStorage.getItem('userEmail');
+        getUserEmail(state) {
+            return state.userEmail;
         }
     },
     modules: {

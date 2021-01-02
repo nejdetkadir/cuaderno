@@ -20,13 +20,19 @@ const mutations = {
 const actions = {
     initCollections({getters, commit}) {
         if (getters.isAuthenticated) {
+            console.log('init col')
             Vue.axios.get(`${process.env.VUE_APP_FIREBASE_DB_URL}/collections.json`)
                 .then((res) => {
                     commit("clearCollections");
+                    let collectionData = {};
                     for (let id in res.data) {
-                        res.data[id].id = id;
+                        if (res.data[id].userEmail === getters.getUserEmail) {
+                            res.data[id].id = id;
+                            collectionData[id] = res.data[id];
+                            console.log(res.data[id].userEmail + ' ==  ' + getters.getUserEmail)
+                        }
                     }
-                    state.collections = res.data;
+                    state.collections = collectionData;
                 })
                 .catch((err) => {
                     swal({
